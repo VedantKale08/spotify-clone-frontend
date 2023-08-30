@@ -1,0 +1,1 @@
+export const input = "bg-neutral-900 p-3 rounded-md border border-neutral-400 hover:border-white focus:border-white transition"
