@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import PopupContainer from "./PopupContainer";
 import { FcGoogle } from "react-icons/fc";
@@ -10,6 +11,8 @@ import { ApiUrl, registerApi } from "@/constants/apiEndpoints";
 import { setCookie } from "cookies-next";
 import { input } from "@/css/Css";
 import { twMerge } from "tailwind-merge";
+import { authStore } from "@/stores/authStore";
+import GoogleAuth from "./Auth/GoogleAuth";
 
 const RegisterPopup = ({ setPopup }) => {
   const {
@@ -23,7 +26,8 @@ const RegisterPopup = ({ setPopup }) => {
   const [type, setType] = useState(true);
   const [gender, setGender] = useState("");
   const [genderError, setGenderError] = useState("");
-  const [loginPopup, setLoginPopup] = useState(false);
+  const setLoginPopup = authStore((state) => state.setLoginPopup);
+  const setRegisterPopup = authStore((state) => state.setRegisterPopup);
 
   const togglePassword = () => {
     let input = document.getElementById("password");
@@ -48,6 +52,7 @@ const RegisterPopup = ({ setPopup }) => {
         if (response?.data?.status) {
           setCookie("token", response.data.data.token);
           setPopup(false);
+          window.location.reload();
         }
       } catch (error) {
         console.log(error);
@@ -62,10 +67,7 @@ const RegisterPopup = ({ setPopup }) => {
       setPopup={setPopup}
     >
       <div className="flex flex-col items-center text-sm md:text-sm">
-        <button className=" py-3 px-10 rounded-full border border-neutral-400 flex gap-2 md:gap-4 items-center justify-center md:w-[80%] w-[90%] hover:border-white transition">
-          <FcGoogle size={30} />
-          <p className="md:text-base text-sm">Continue With Google</p>
-        </button>
+        <GoogleAuth/>
         <form
           className="mt-10 md:w-[80%] w-[90%] grid gap-6"
           onSubmit={handleSubmit(submit)}
@@ -92,7 +94,7 @@ const RegisterPopup = ({ setPopup }) => {
                 type="password"
                 id="password"
                 placeholder="Password"
-                className={twMerge(input,'w-full')}
+                className={twMerge(input, "w-full")}
                 {...register("password", { required: true })}
               />
               <AiFillEyeInvisible
@@ -185,8 +187,9 @@ const RegisterPopup = ({ setPopup }) => {
           <div
             onClick={() => {
               setLoginPopup(true);
+              setRegisterPopup(false);
             }}
-            className="text-center underline hover:opacity-80"
+            className="text-center underline hover:opacity-80 cursor-pointer"
           >
             Already a Member? Log in Now!
           </div>

@@ -1,6 +1,7 @@
-import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import { Figtree } from "next/font/google";
+import Main from "./main";
+import AuthProvider from "@/components/Auth/AuthProvider";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -9,9 +10,12 @@ export const metadata = {
   description: "Listen to Music!",
 };
 
+
+
 export default function RootLayout({
   children,
 }) {
+
   return (
     <html lang="en">
       <head>
@@ -23,7 +27,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-          <Sidebar>{children}</Sidebar>
+        <AuthProvider>
+          <Main>{children}</Main>
+        </AuthProvider>
       </body>
     </html>
   );

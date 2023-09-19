@@ -8,16 +8,16 @@ import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
 import { useEffect, useState } from "react";
 import LoginPopup from "./LoginPopup";
-import RegisterPopup from "./RegisterPopup";
 import { getCookie } from "cookies-next";
 import { CgProfile } from "react-icons/cg";
 import { userStore } from "@/stores/getUserDetails";
+import { authStore } from "@/stores/authStore";
 
 function Header({ children, className, token }) {
   const router = useRouter();
-  const [loginPopup, setLoginPopup] = useState(false);
-  const [registerPopup, setRegisterPopup] = useState(false);
   const setToken = userStore((state) => state.setToken);
+  const setLoginPopup = authStore((state) => state.setLoginPopup);
+  const setRegisterPopup = authStore((state) => state.setRegisterPopup);
 
   useEffect(() => {
     setToken(token);
@@ -91,8 +91,6 @@ function Header({ children, className, token }) {
         </div>
       </div>
       {children}
-      {loginPopup && <LoginPopup setPopup={setLoginPopup} />}
-      {registerPopup && <RegisterPopup setPopup={setRegisterPopup} />}
     </div>
   );
 }
