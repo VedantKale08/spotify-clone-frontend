@@ -2,6 +2,8 @@ import "./globals.css";
 import { Figtree } from "next/font/google";
 import Main from "./main";
 import AuthProvider from "@/components/Auth/AuthProvider";
+import { cookies } from "next/headers";
+import { authStore } from "@/stores/authStore";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -10,12 +12,9 @@ export const metadata = {
   description: "Listen to Music!",
 };
 
-
-
 export default function RootLayout({
   children,
 }) {
-
   return (
     <html lang="en">
       <head>

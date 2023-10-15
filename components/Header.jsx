@@ -12,16 +12,22 @@ import { getCookie } from "cookies-next";
 import { CgProfile } from "react-icons/cg";
 import { userStore } from "@/stores/getUserDetails";
 import { authStore } from "@/stores/authStore";
+import { register } from "@/helpers/functions";
+import { useSession } from "next-auth/react";
 
-function Header({ children, className, token }) {
+function Header({ children, className, token, isLoggedInUser }) {
   const router = useRouter();
   const setToken = userStore((state) => state.setToken);
   const setLoginPopup = authStore((state) => state.setLoginPopup);
   const setRegisterPopup = authStore((state) => state.setRegisterPopup);
 
+  const session = useSession();
   useEffect(() => {
+    if (!isLoggedInUser) {
+      register(session?.data?.user);
+    }
     setToken(token);
-  }, [token]);
+  }, [token, isLoggedInUser, session]);
 
   const handleLogout = () => {};
 

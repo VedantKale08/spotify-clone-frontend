@@ -3,7 +3,7 @@ import LoginPopup from '@/components/LoginPopup';
 import RegisterPopup from '@/components/RegisterPopup';
 import Sidebar from '@/components/Sidebar';
 import { authStore } from '@/stores/authStore';
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Main = ({ children }) => {
 

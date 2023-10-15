@@ -1,7 +1,5 @@
 "use client";
-import { ApiUrl, loginApi, registerApi } from "@/constants/apiEndpoints";
-import axios from "axios";
-import { setCookie } from "cookies-next";
+import { register } from "@/helpers/functions";
 import { signIn, useSession } from "next-auth/react";
 import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
@@ -21,21 +19,7 @@ const GoogleAuth = () => {
     }
   }, [session]);
 
-  const register = async (data) => {
-    try {
-      console.log("djhdhjjdjdhjdhjdhj");
-      const response = await axios.post(
-        ApiUrl + registerApi + "?byGoogle=true",
-        data
-      );
-      if (response?.data?.status) {
-        setCookie("token", response.data.data.token);
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
   return (
     <>
       <button
