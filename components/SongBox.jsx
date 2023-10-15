@@ -4,7 +4,7 @@ import { FaPlay } from 'react-icons/fa';
 
 const SongBox = ({data}) => {
   return (
-    <div className="flex flex-col  bg-neutral-600/10 hover:bg-neutral-400/20 p-4 w-[160px] rounded-md transition duration-500 group cursor-pointer pr-4">
+    <div className="flex flex-col  bg-neutral-600/10 hover:bg-neutral-400/20 p-4 w-[180px] rounded-md transition duration-500 group cursor-pointer pr-4">
       <div className="relative h-[120px] w-full">
         <Image
           src={data.image}

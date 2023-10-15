@@ -7,12 +7,13 @@ import { BoxPops } from "./BoxPops";
 import { userStore } from "@/stores/getUserDetails";
 import LoginPopup from "./LoginPopup";
 import { authStore } from "@/stores/authStore";
+import LibraryList from "./LibraryList";
 
 const Library = () => {
-  const [popup,setPopup] = useState(false);
-  const token = userStore(state => state.token)
+  const [popup, setPopup] = useState(false);
+  const token = userStore((state) => state.token);
   const setLoginPopup = authStore((state) => state.setLoginPopup);
-  
+
   const onClick = () => {
     token ? setPopup(true) : setLoginPopup(true);
   };
@@ -30,9 +31,7 @@ const Library = () => {
           className="text-neutral-400 cursor-pointer hover:text-white transition"
         />
       </div>
-      {token && (
-        <div className="flex flex-col gap-y-2 mt-4 px-3">List of Songs</div>
-      )}
+      {token && <LibraryList />}
       {!token && (
         <div className="grid gap-5 mt-8">
           <div className="px-2">
@@ -48,7 +47,7 @@ const Library = () => {
               title="Let's add a new song in spotify"
               description="It's easy, we'll help you"
               buttonText="Add a song"
-              onClick={onClick}            
+              onClick={onClick}
             />
           </div>
         </div>
